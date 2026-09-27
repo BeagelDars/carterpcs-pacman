@@ -1,0 +1,161 @@
+/* Authentic Minimalist Dark Arcade Pac-Man Theme */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow-x: hidden;
+}
+
+/* Minimalist Arcade Wrapper */
+.arcade-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* Arcade Header: 1UP & HIGH SCORE */
+.arcade-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.score-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-title {
+  color: #ff0000;
+  font-size: 0.75rem;
+}
+
+.high-score-title {
+  color: #ff0000;
+  font-size: 0.75rem;
+}
+
+.score-num {
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+/* Game Canvas */
+canvas#gameCanvas {
+  display: block;
+  background-color: #000000;
+  touch-action: none;
+  cursor: pointer;
+}
+
+/* Bottom Arcade Bar (Lives & Minimal Controls) */
+.arcade-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-top: 4px;
+}
+
+.lives-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arcade-life-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.minimal-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.arcade-btn {
+  background: transparent;
+  border: 1px solid #333333;
+  color: #888888;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.arcade-btn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* Mobile Virtual D-Pad */
+.mobile-controls {
+  display: none;
+  margin-top: 14px;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+  }
+}
+
+.dpad-row {
+  display: flex;
+  gap: 8px;
+}
+
+.dpad-btn {
+  width: 52px;
+  height: 52px;
+  background: #111111;
+  border: 1px solid #333333;
+  color: #ffff00;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.dpad-btn:active {
+  background: #222222;
+  border-color: #ffff00;
+}

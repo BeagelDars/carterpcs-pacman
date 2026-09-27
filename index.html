@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CARTER-MAN</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/jpeg" href="./assets/carter-cute.jpg">
+</head>
+<body>
+
+  <div class="arcade-container">
+    <!-- Retro Arcade Top Scoreboard -->
+    <div class="arcade-header">
+      <div class="score-col">
+        <span class="score-title">1UP</span>
+        <span id="scoreVal" class="score-num">00</span>
+      </div>
+      <div class="score-col">
+        <span class="high-score-title">HIGH SCORE</span>
+        <span id="highScoreVal" class="score-num">10000</span>
+      </div>
+    </div>
+
+    <!-- Authentic Dark Maze Canvas -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Retro Bottom Lives & Controls -->
+    <div class="arcade-footer">
+      <div id="livesContainer" class="lives-container"></div>
+      <div class="minimal-controls">
+        <button id="soundToggleBtn" class="arcade-btn" title="Toggle Sound (M)">🔊</button>
+        <button id="restartBtn" class="arcade-btn" title="Restart Game">🔄</button>
+      </div>
+    </div>
+
+    <!-- Mobile Virtual Controls -->
+    <div class="mobile-controls">
+      <div class="dpad-row">
+        <button id="btnUp" class="dpad-btn" aria-label="Up">▲</button>
+      </div>
+      <div class="dpad-row">
+        <button id="btnLeft" class="dpad-btn" aria-label="Left">◀</button>
+        <button id="btnPause" class="dpad-btn" aria-label="Pause">⏸</button>
+        <button id="btnRight" class="dpad-btn" aria-label="Right">▶</button>
+      </div>
+      <div class="dpad-row">
+        <button id="btnDown" class="dpad-btn" aria-label="Down">▼</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Game } from './src/game.js';
+    import { soundEngine } from './src/audio.js';
+    import { DIRS } from './src/ghosts.js';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('gameCanvas');
+      const uiElements = {
+        scoreEl: document.getElementById('scoreVal'),
+        highScoreEl: document.getElementById('highScoreVal'),
+        livesEl: document.getElementById('livesContainer')
+      };
+
+      const game = new Game(canvas, uiElements);
+
+      // Sound button
+      const soundBtn = document.getElementById('soundToggleBtn');
+      soundBtn.addEventListener('click', () => {
+        soundEngine.init();
+        soundEngine.setMuted(!soundEngine.muted);
+        soundBtn.textContent = soundEngine.muted ? '🔇' : '🔊';
+      });
+
+      // Restart button
+      document.getElementById('restartBtn').addEventListener('click', () => {
+        game.startGame();
+      });
+
+      // Mobile D-pad
+      document.getElementById('btnUp').addEventListener('click', () => game.setNextDir(DIRS.UP));
+      document.getElementById('btnDown').addEventListener('click', () => game.setNextDir(DIRS.DOWN));
+      document.getElementById('btnLeft').addEventListener('click', () => game.setNextDir(DIRS.LEFT));
+      document.getElementById('btnRight').addEventListener('click', () => game.setNextDir(DIRS.RIGHT));
+      document.getElementById('btnPause').addEventListener('click', () => game.togglePause());
+
+      // Canvas click to start
+      canvas.addEventListener('click', () => {
+        if (game.state === 'START' || game.state === 'GAMEOVER') {
+          game.startGame();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
